@@ -5,12 +5,17 @@ body {
   text-align: center;
   margin: 0;
   padding: 0;
+
+  /* Sticky footer setup */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
   background-color: #ff7043;
   color: white;
-  padding: 20px 0;
+  padding: 20px 0 10px;
 }
 
 header h1 {
@@ -18,8 +23,31 @@ header h1 {
   font-size: 3rem;
 }
 
+.top-nav {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.top-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.top-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
 main {
   padding: 20px;
+
+  /* Makes main take remaining space so footer sticks to bottom */
+  flex: 1;
 }
 
 .recipes {
@@ -27,6 +55,7 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  align-items: stretch; /* helps tiles match height */
 }
 
 .recipe {
@@ -36,35 +65,111 @@ main {
   width: 250px;
   padding: 15px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: left;
+
+  /* Make every tile the same structure/height */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .recipe img {
   width: 100%;
+  height: 160px;              /* fixed image height so all match */
+  object-fit: cover;          /* crops while keeping aspect ratio */
+  object-position: center;
   border-radius: 10px;
+  display: block;
 }
 
 .recipe h3 {
   font-size: 1.5rem;
   color: #d84315;
+  margin: 10px 0 6px;
+  min-height: 2.8em;          /* keeps titles aligned even if they wrap */
 }
 
 .recipe p {
   font-size: 1rem;
   color: #f4511e;
+  margin: 0 0 8px;
+  min-height: 3.2em;          /* keeps description area consistent */
 }
 
-button {
+.recipe-details {
+  margin-top: auto;           /* pushes dropdown button area to bottom */
+}
+
+.recipe-details > summary {
+  list-style: none;
+  cursor: pointer;
   margin-top: 10px;
-  padding: 10px 20px;
+  padding: 10px 12px;
   background-color: #ff8c00;
   color: white;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.recipe-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.recipe-details[open] > summary {
+  background-color: #e65100;
+}
+
+.recipe-content {
+  margin-top: 10px;
+  background: #fff7ed;
+  border: 2px dashed #ffcc80;
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #6b2b1a;
+}
+
+.recipe-content h4 {
+  margin: 6px 0;
+  color: #d84315;
+}
+
+.recipe-content ul,
+.recipe-content ol {
+  margin: 6px 0 10px 18px;
+  padding: 0;
+}
+
+.contact-card {
+  max-width: 650px;
+  margin: 0 auto;
+  background: #ffe0b2;
+  border: 2px solid #ffcc80;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: #d84315;
+}
+
+.contact-card a {
+  color: #d84315;
+  font-weight: bold;
+}
+
+.email-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #ff8c00;
+  color: white !important;
+  text-decoration: none;
+  border-radius: 5px;
   font-size: 1rem;
 }
 
-button:hover {
+.email-button:hover {
   background-color: #e65100;
 }
 
@@ -72,4 +177,7 @@ footer {
   background-color: #ffcc80;
   color: #d84315;
   padding: 10px 0;
+
+  /* Optional: ensure it doesn't shrink in flex layout */
+  flex-shrink: 0;
 }
